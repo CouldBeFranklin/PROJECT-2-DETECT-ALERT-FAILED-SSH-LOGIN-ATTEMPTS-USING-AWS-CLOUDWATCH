@@ -65,3 +65,29 @@ The solution uses CloudWatch Logs, Metric Filters, and Alarms to generate notifi
 ![LOG](LM%20IMGS/LOGINFAIL-LOG.jpg)
 
 
+
+## FIRST ERROR – INVALID CHARACTER ERROR
+-	I realized that filter patterns do not accept regular expressions and characters just like I thought. Plain text is all that is needed
+
+
+![FIRST ERROR](LM%20IMGS/FIRSTERROR.jpg)
+
+
+
+## STEP 3 – (SOLUTION)
+-	I removed all the expressions and left only the plain text (type=USER_LOGIN res=failed) 
+-	I tested the pattern once again and it gave back a few results of failed login logs
+-	I then completed the creation of the failed login metric filter
+
+
+![NEW PATTERN](LM%20IMGS/WORKING-PATTERN.jpg)
+
+
+## STEP 4 – CREATING AN SNS TOPIC AND SUBSCRIPTION
+-	I opened my SNS console and created a topic named “FAILEDLOGIN”
+-	I subscribed my emailed to it
+-	I got a confirmation email which I confirmed.
+-	An SNS topic with my email subscribed was ready to receive my alerts
+
+
+![SNS](LM%20IMGS/SNS-SUB.jpg)
