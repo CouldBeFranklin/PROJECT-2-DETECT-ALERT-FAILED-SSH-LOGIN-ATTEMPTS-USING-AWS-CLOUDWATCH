@@ -31,5 +31,23 @@ The solution uses CloudWatch Logs, Metric Filters, and Alarms to generate notifi
 -	CloudWatch Alarm triggers when metric ≥ 3 within 5 minutes.
 -	SNS Topic sends email notification.
 
+
+
 ## **STEPS INVOLVED**
+
+# STEP 1 - CHECKING THE STATUS OF THE ALREADY AVAILABLE SERVICES FROM PROJECT 1
+-	At the end of my last project I stopped the Ec2 instance in which my CloudWatch agent was installed and logging to CloudWatch.
+-	I decided to start the instance once again
+-	I SSH’ed into the Ec2 instance and confirmed the status of my CW agent and it was still working.
+-	I checked the CloudWatch console to ensure that the log group was still collecting logs from /var/log/audit/audit.log
+-	I checked the logs collected to ensure that the audit.log logs in the EC2WATCH log group collects the user login logs which appears as ‘type = USER_LOGIN’
+
+![SSH](LM%20IMGS/SSH.jpg)
+
+
+![AGENT-CHK](LM%20IMGS/AGENT-CHK.jpg)
+
+
+![SSH](LM%20IMGS/USERLOGIN-CHK.jpg)
+
 
