@@ -175,6 +175,9 @@ This provides real-time security monitoring for unauthorized login attempts on E
 -	Security monitoring
 
 
+## <p align="center">**Thank you all for your audience and i am open to any corrections or recommendations. See you all again in my next project**
+
+
 
 
 ## <p align="center"> ROUGH SHEET GUIDE ON THE PROJECT
