@@ -134,7 +134,7 @@ The solution uses CloudWatch Logs, Metric Filters, and Alarms to generate notifi
 
 
 
-STEP 7 - (SOLUTION)
+## STEP 7 - (SOLUTION)
 -	I opened the IAM console and created a new policy and named it “PUTCLOUDWATCHMETRIC”, which had the permissions to put metric filter and filter log groups
 -	I attached this policy to the EC2WATCH role attached to the ec2 instance.
 -	I simulated the failed login once again and the metric filter graph spiked and BOOOOOOM I received an email alert from the SNS topic I created. 
@@ -143,8 +143,44 @@ STEP 7 - (SOLUTION)
 ![POLICY](LM%20IMGS/NEW-POLICY.jpg)
 
 
+
+
 ![ROLE](LM%20IMGS/CW-ROLE.jpg)
+
+
 
 
 ![ALERT](LM%20IMGS/EMAIL-ALERT.jpg)
 
+
+
+## FINAL RESULT
+The monitoring pipeline is fully functional:
+-	CloudWatch agent ships audit.log to CloudWatch Logs
+-	Metric filter extracts failed SSH login attempts
+-	CloudWatch metric counts failures
+-	Alarm triggers instantly
+-	SNS sends email alerts
+This provides real-time security monitoring for unauthorized login attempts on EC2.
+
+
+
+## What I Learned
+-	How Linux logs represent authentication events 
+-	How CloudWatch Agent ingests logs
+-	Building security metrics from log patterns
+-	Filter pattern uses only plain text and no need for special characters
+-	Creating actionable CloudWatch alarms
+-	Always check the IAM permissions
+-	Security monitoring
+
+
+
+
+## <p align="center"> ROUGH SHEET GUIDE ON THE PROJECT
+
+
+![ROUGH](LM%20IMGS/ROUGH1.jpg)
+
+
+![ROUGH](LM%20IMGS/ROUGH2.jpg)
