@@ -91,3 +91,60 @@ The solution uses CloudWatch Logs, Metric Filters, and Alarms to generate notifi
 
 
 ![SNS](LM%20IMGS/SNS-SUB.jpg)
+
+![CONFIRM EMAIL](LM%20IMGS/CONFIRM-SUBEMAIL.jpg)
+
+
+## STEP 5 – CREATING A CLOUDWATCH ALARM
+
+-	I opened my CW console and navigated to alarms
+-	I created an alarm with the attributes
+
+| Setting	|	Value |
+|:---------:|:----------:|
+| Threshold type	|	Static | 
+| Condition	|	Greater/Equal | 
+| Threshold value	|	3 | 
+| Evaluation period	|	5 minutes | 
+
+-	I selected and attached the initially created SNS topic and named the alarm “FAILEDSSHLOGIN”
+-	The alarm triggers when there is 3 recorded failed ssh login in 5 minutes. This sends an alert to the SNS topic attached to the alarm which in turn sends a message to the email subscribed to it.
+
+
+![ALARM](LM%20IMGS/ALARM-CREATE.jpg)
+
+
+
+## STEP 6 – TESTING THE WORKFLOW
+
+-	I simulated a failed login attempt by trying to ssh into my instance using the wrong user and no key.
+-	BUT THERE WAS A PROBLEM
+
+
+![SIM](LM%20IMGS/LOGIN-SIM.jpg)
+
+
+## SECOND ERROR – IAM PERMISSION ERROR
+
+-	The failed logins where logged in my EC2WATCH audit log group in the CloudWatch console but it never triggered the alarm.
+-	I also realized there was no spike on the metric filter graph despite a lot of failed logins being logged.
+-	After minutes of troubleshooting and trying to narrow down the problem, I realized the role associated with the ec2 instance only had the permission for the CloudWatch agent to put logs in CloudWatch
+-	It had no CloudWatch log permission to use the metric filter.
+
+
+
+
+STEP 7 - (SOLUTION)
+-	I opened the IAM console and created a new policy and named it “PUTCLOUDWATCHMETRIC”, which had the permissions to put metric filter and filter log groups
+-	I attached this policy to the EC2WATCH role attached to the ec2 instance.
+-	I simulated the failed login once again and the metric filter graph spiked and BOOOOOOM I received an email alert from the SNS topic I created. 
+
+
+![POLICY](LM%20IMGS/NEW-POLICY.jpg)
+
+
+![ROLE](LM%20IMGS/CW-ROLE.jpg)
+
+
+![ALERT](LM%20IMGS/EMAIL-ALERT.jpg)
+
